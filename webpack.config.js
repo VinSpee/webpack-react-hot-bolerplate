@@ -1,6 +1,5 @@
 const webpack        = require('webpack');
 const webpackMerge   = require('webpack-merge');
-const cssnano        = require('cssnano');
 const path           = require('path');
 
 const DEVELOPMENT_CONFIG = require('./config/webpack.dev');
@@ -10,7 +9,7 @@ const {
   DIST_PATH,
   NODE_MODULES_PATH
 } = require('./config/paths');
-const { cssLoader, sassLoader } = require('./config/loaders');
+const { cssLoader } = require('./config/loaders');
 
 const ENV = process.env.NODE_ENV;
 const VALID_ENVIRONMENTS = ['test', 'development', 'production'];
@@ -55,15 +54,19 @@ const COMMON_CONFIG = {
         ]
       },
       {
-        test: /\.sass$/,
+        test: /\.css$/,
         include: APP_PATH,
-        use: ['style-loader', cssLoader, 'postcss-loader', sassLoader]
+        use: [
+          'style-loader',
+          cssLoader,
+          'postcss-loader',
+        ]
       }
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.sass'],
+    extensions: ['.js'],
     modules: [
       NODE_MODULES_PATH,
       APP_PATH
@@ -100,25 +103,16 @@ const COMMON_CONFIG = {
           emitWarning: true
         },
         postcss: [
-          cssnano({
-            sourcemap: true,
-            autoprefixer: {
-              add: true,
-              remove: true,
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9'
-              ]
-            },
-            safe: true,
-            discardComments: {
-              removeAll: true
-            }
-          })
-        ]
-      }
+          /* eslint-disable global-require */
+          require('postcss-import')(),
+          require('postcss-at-rules-variables')(),
+          require('postcss-each')(),
+          require('postcss-for')(),
+          require('postcss-conditionals')(),
+          require('postcss-cssnext')(),
+          /* eslint-enable global-require */
+        ],
+      },
     })
   ]
 };

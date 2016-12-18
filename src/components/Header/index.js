@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Classes from './styles';
 
 const links = [
   { to: '/', children: 'Home' },
@@ -8,11 +7,11 @@ const links = [
 ];
 
 const Header = () => (
-  <div className={ Classes.root }>
+  <div>
     { links.map((props, i) =>
       <Link
         key={ i }
-        activeClassName={ Classes.active }
+        activeClassName="active"
         activeOnlyWhenExact
         { ...props }
       />

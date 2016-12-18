@@ -5,13 +5,12 @@ import Dashboard from 'components/Dashboard';
 import Home from 'components/Home';
 import Header from 'components/Header';
 
-
-import Classes from './styles';
+import './styles.css';
 
 const Application = ({ store }) => (
   <Provider store={ store }>
     <BrowserRouter>
-      <span className={ Classes.root }>
+      <span>
         <Header />
 
         <Match exactly pattern="/" component={ Home } />
@@ -22,7 +21,7 @@ const Application = ({ store }) => (
 );
 
 Application.propTypes = {
-  store:    Provider.propTypes.store
+  store: Provider.propTypes.store
 };
 
 export default Application;
