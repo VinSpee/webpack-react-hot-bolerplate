@@ -4507,6 +4507,10 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
+sanitize.css@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/sanitize.css/-/sanitize.css-4.1.0.tgz#0bafc3c513699f2fe8c7980c6d37edf21d3f5448"
+
 sass-loader@^4.0.2:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-4.1.0.tgz#fd8604c5bf90001b173bb27540e8f2f5ed64602b"
@@ -4587,6 +4591,10 @@ sha.js@^2.3.6:
   resolved "https://registry.yarnpkg.com/sha.js/-/sha.js-2.4.8.tgz#37068c2c476b6baf402d14a49c67f597921f634f"
   dependencies:
     inherits "^2.0.1"
+
+shed-css@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shed-css/-/shed-css-1.0.0.tgz#f7dbbb9ea784ef2ab91ee1038a446f604d110bf9"
 
 shelljs@^0.7.0, shelljs@^0.7.5:
   version "0.7.5"
