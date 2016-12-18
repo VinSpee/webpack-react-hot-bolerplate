@@ -109,13 +109,7 @@ const COMMON_CONFIG = {
           require('postcss-each')(),
           require('postcss-for')(),
           require('postcss-conditionals')(),
-          require('postcss-cssnext')({
-            features: {
-              customProperties: {
-                variables: require('./config/theme.js'),
-              }
-            }
-          }),
+          require('postcss-cssnext')(),
           /* eslint-enable global-require */
         ],
       },
