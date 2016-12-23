@@ -6,6 +6,6 @@ import Application from 'components/Application';
 
 
 render(
-  <Application store={ store } />,
-  document.getElementById('root')
+  <Application store={store} />,
+  document.getElementById('root'),
 );

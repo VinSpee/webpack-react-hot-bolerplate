@@ -6,15 +6,22 @@ import store from 'config/createStore';
 import Application from 'components/Application';
 
 
-const hotRender = () => {
-  render(
-    <AppContainer>
-      <Application store={ store } />
-    </AppContainer>,
-    document.getElementById('root')
-  );
+const hotRender = (root) => {
+  /* eslint-disable global-require */
+  const RedBox = require('redbox-react').default;
+  /* eslint-enable global-require */
+  try {
+    render(
+      <AppContainer>
+        <Application store={store} />
+      </AppContainer>,
+      root,
+    );
+  } catch (e) {
+    render(<RedBox error={e} />, root);
+  }
 };
 
-hotRender();
+hotRender(document.getElementById('root'));
 
 module.hot.accept('components/Application', hotRender);

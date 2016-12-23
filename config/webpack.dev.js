@@ -1,19 +1,19 @@
 const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 
 
 const {
   HOT_ONLY_ENTRY,
-  NODE_MODULES_PATH
+  NODE_MODULES_PATH,
 } = require('./paths');
 
 const DEVELOPMENT_CONFIG = {
   entry: {
     client: [
       'react-hot-loader/patch',
-      HOT_ONLY_ENTRY
-    ]
+      HOT_ONLY_ENTRY,
+    ],
   },
 
   cache: true,
@@ -28,16 +28,20 @@ const DEVELOPMENT_CONFIG = {
       assets: true,
       timings: true,
       chunks: false,
-      children: false
-    }
+      children: false,
+    },
+  },
+
+  output: {
+    publicPath: '/',
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new htmlWebpackPlugin({
+    new HTMLWebpackPlugin({
       title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
-      template: './config/index.ejs'
+      template: './config/index.ejs',
     }),
     new WatchMissingNodeModulesPlugin(NODE_MODULES_PATH),
     new webpack.LoaderOptionsPlugin({

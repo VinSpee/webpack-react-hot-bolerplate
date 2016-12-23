@@ -1,21 +1,36 @@
-import thunkMiddleware from 'redux-thunk';
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import {
+  combineReducers,
+  createStore,
+  applyMiddleware,
+} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import currentUser from 'reducers/currentUser';
+import currentUser, {
+  rootSaga as currentUserSaga,
+} from 'modules/current-user';
+
+function* rootSaga() {
+  yield [
+    currentUserSaga(),
+  ];
+}
 
 const rootReducer = combineReducers({
-  currentUser
+  currentUser,
 });
+const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [
-  thunkMiddleware
+  sagaMiddleware,
 ];
 
 const store = createStore(
   rootReducer,
   undefined,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

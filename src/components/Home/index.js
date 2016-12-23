@@ -1,22 +1,26 @@
-import React, { Component } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React from 'react';
+import { connect } from 'react-redux';
+import { logIn } from 'modules/current-user';
 
+const Home = ({
+  handleLoginClick,
+  loggedIn,
+}) => (
+  <div>
+    Home Page
+    <button onClick={handleLoginClick}>
+      Login
+    </button>
+    {loggedIn ? 'Logged In' : 'Logged Out'}
+  </div>
+);
 
-class Home extends Component {
-  static displayName = 'Home';
+const mapStateToProps = state => ({
+  loggedIn: state.currentUser.loggedIn,
+});
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
-  }
+const mapDispatchToProps = {
+  handleLoginClick: logIn,
+};
 
-  render() {
-    return (
-      <div>
-        Home Page
-      </div>
-    );
-  }
-}
-
-export default Home;
-
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

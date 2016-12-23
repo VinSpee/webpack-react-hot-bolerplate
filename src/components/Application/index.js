@@ -8,20 +8,19 @@ import Header from 'components/Header';
 import './styles.css';
 
 const Application = ({ store }) => (
-  <Provider store={ store }>
+  <Provider store={store}>
     <BrowserRouter>
       <span>
         <Header />
-
-        <Match exactly pattern="/" component={ Home } />
-        <Match exactly pattern="/dashboard" component={ Dashboard } />
+        <Match exactly pattern="/" component={Home} />
+        <Match exactly pattern="/dashboard" component={Dashboard} />
       </span>
     </BrowserRouter>
   </Provider>
 );
 
 Application.propTypes = {
-  store: Provider.propTypes.store
+  store: Provider.propTypes.store,
 };
 
 export default Application;
