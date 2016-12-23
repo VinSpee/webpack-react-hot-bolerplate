@@ -1,6 +1,7 @@
+// @flow
 import React from 'react';
 
-const asyncComponent = getComponent =>
+const asyncComponent = (getComponent: any) =>
   class AsyncComponent extends React.Component {
     static Component = null;
     state = { Component: AsyncComponent.Component };

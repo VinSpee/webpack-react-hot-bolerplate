@@ -1,19 +1,34 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 const links = [
-  { to: '/', children: 'Home' },
-  { to: '/dashboard', children: 'Dashboard' },
+  {
+    to: '/',
+    children: 'Home',
+  },
+  {
+    to: '/dashboard',
+    children: 'Dashboard',
+    protected: true,
+  },
 ];
 
-const Header = () => (
+const Header = ({
+  loggedIn,
+}: {
+  loggedIn: boolean,
+  children?: React$Element<*> | Array<React$Element<*>>,
+}) => (
   <div>
     { links.map((props, i) =>
+      props.protected && loggedIn &&
       <Link
         key={i}
         activeClassName="active"
         activeOnlyWhenExact
-        {...props}
+        to={props.to}
       >
         {props.children}
       </Link>,
@@ -21,9 +36,8 @@ const Header = () => (
   </div>
 );
 
-Header.propTypes = {
-  children: PropTypes.node,
-};
+const mapStateToProps = (state: AppState) => ({
+  loggedIn: state.currentUser.loggedIn,
+});
 
-export default Header;
-
+export default connect(mapStateToProps)(Header);

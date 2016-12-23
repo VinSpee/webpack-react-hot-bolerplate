@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { BrowserRouter, Match } from 'react-router';
 import { Provider } from 'react-redux';
@@ -7,7 +8,9 @@ import Header from 'components/Header';
 
 import './styles.css';
 
-const Application = ({ store }) => (
+const Application = ({ store }: {
+  store: Store,
+}) => (
   <Provider store={store}>
     <BrowserRouter>
       <span>

@@ -1,9 +1,15 @@
+// @flow
 import actionTypesCreator, {
   SYNC,
   ASYNC,
 } from 'redux-action-types-creator';
 
-const creator = (ns = 'APP', actions = {}) => {
+const creator = (
+  ns: string = 'APP',
+  actions: {
+    [name: string]: SYNC | ASYNC,
+  } = {},
+) => {
   const actionType = actionTypesCreator(ns, {
     asyncSuffix: [
       'REQUESTED', 'FULFILLED', 'REJECTED',

@@ -1,0 +1,20 @@
+[ignore]
+.*node_modules/fbjs.*
+.*node_modules/systemjs*
+
+[include]
+../node_modules/
+../src/
+../config/
+../components/
+
+[libs]
+types
+flow-typed
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\flow-disable-line
+module.name_mapper='^config\/\(.*\)' -> '<PROJECT_ROOT>/src/config/\1'
+module.name_mapper='^components\/\(.*\)' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^modules\/\(.*\)' -> '<PROJECT_ROOT>/src/modules/\1'
+module.name_mapper='^\(.*\)' -> '<PROJECT_ROOT>/src/\1'

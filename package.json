@@ -9,7 +9,8 @@
     "start": "env NODE_ENV=development webpack-dev-server --progress --colors",
     "build": "rimraf dist && env NODE_ENV=production webpack  --colors",
     "lint": "eslint src",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn run lint -- --fix",
+    "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "keywords": [
     "webpack v2",
@@ -30,9 +31,11 @@
       "stage-0"
     ],
     "plugins": [
-      "transform-runtime",
+      "transform-flow-strip-types",
+      "syntax-flow",
       "babel-plugin-transform-class-properties",
-      "transform-object-rest-spread"
+      "transform-object-rest-spread",
+      "transform-runtime"
     ],
     "env": {
       "production": {
@@ -49,7 +52,9 @@
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.9",
+    "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-flow-strip-types": "^6.21.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
@@ -65,10 +70,13 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-import-resolver-webpack": "^0.8.0",
     "eslint-loader": "^1.6.1",
+    "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "eslint-plugin-redux-saga": "^0.3.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "flow-bin": "^0.37.4",
     "history": "4",
     "html-webpack-plugin": "^2.24.1",
     "postcss-at-rules-variables": "^0.0.26",
@@ -96,7 +104,7 @@
     "sanitize.css": "^4.1.0",
     "shed-css": "^1.0.0",
     "style-loader": "^0.13.1",
-    "webpack": "2.2.0-rc.1",
+    "webpack": "2.2.0-rc.2",
     "webpack-dev-server": "2.2.0-rc.0",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^1.1.1"

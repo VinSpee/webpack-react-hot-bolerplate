@@ -2,8 +2,15 @@
   "env": {
     "browser": true
   },
+  "plugins": [
+    "flowtype",
+    "redux-saga"
+  ],
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": [
+    "plugin:flowtype/recommended",
+    "airbnb"
+  ],
   "rules": {
     "react/no-unused-prop-types": 0,
     "no-debugger": 1,

@@ -6,7 +6,7 @@ import store from 'config/createStore';
 import Application from 'components/Application';
 
 
-const hotRender = (root) => {
+const hotRender = (root: Node) => {
   /* eslint-disable global-require */
   const RedBox = require('redbox-react').default;
   /* eslint-enable global-require */

@@ -1,3 +1,4 @@
+// @flow
 import {
   takeEvery,
   delay,
@@ -9,23 +10,28 @@ import {
 import { createReducer } from 'redux-create-reducer';
 import actions from './action-types';
 
-const getDefaultState = () => ({
-  data: {
-    loggedIn: false,
-  },
+const getDefaultState = (): CurrentUserState => ({
+  loggedIn: false,
+  loading: false,
 });
 
 const currentUser = createReducer(getDefaultState(), {
-  [actions.LOG_IN.REQUESTED]: (state, { payload }) => ({
+  [actions.LOG_IN.REQUESTED]: (state: CurrentUserState, { payload }) => ({
     ...state,
     id: payload.id,
     loading: true,
   }),
-  [actions.LOG_IN.FULFILLED]: (state, { payload }) => ({
+  [actions.LOG_IN.FULFILLED]: (state: CurrentUserState, { payload }) => ({
     ...state,
     loggedIn: true,
     loading: false,
     ...payload,
+  }),
+  [actions.LOG_OUT]: (state: CurrentUserState) => ({
+    ...state,
+    loggedIn: false,
+    loading: false,
+    id: null,
   }),
 });
 
@@ -39,7 +45,7 @@ function* watchLogIn() {
   yield takeEvery(actions.LOG_IN.REQUESTED, handleLogIn);
 }
 
-export const logIn = ({ user, pass }) => ({
+export const logIn = ({ user, pass }: Credentials) => ({
   type: actions.LOG_IN.REQUESTED,
   payload: {
     user,
@@ -47,7 +53,11 @@ export const logIn = ({ user, pass }) => ({
   },
 });
 
-export function* rootSaga() {
+export const logOut = () => ({
+  type: actions.LOG_OUT,
+});
+
+export function* rootSaga(): Iterable<*> {
   yield [
     watchLogIn(),
   ];
