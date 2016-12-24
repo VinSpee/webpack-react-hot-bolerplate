@@ -2,7 +2,7 @@
 import creator, {
   ASYNC,
   SYNC,
-} from 'config/createActions';
+} from 'config/create-actions';
 
 export default creator('APP', {
   LOG_IN: ASYNC,

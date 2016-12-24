@@ -2,9 +2,9 @@
 import React from 'react';
 import { BrowserRouter, Match } from 'react-router';
 import { Provider } from 'react-redux';
-import Dashboard from 'components/Dashboard';
-import Home from 'components/Home';
-import Header from 'components/Header';
+import Dashboard from 'components/dashboard';
+import Home from 'components/home';
+import Header from 'components/header';
 
 import './styles.css';
 

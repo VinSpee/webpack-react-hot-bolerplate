@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import store from 'config/createStore';
-import Application from 'components/Application';
+import store from 'config/create-store';
+import Application from 'components/application';
 
 
 const hotRender = (root: Node) => {
@@ -24,4 +24,4 @@ const hotRender = (root: Node) => {
 
 hotRender(document.getElementById('root'));
 
-module.hot.accept('components/Application', hotRender);
+module.hot.accept('components/application', hotRender);

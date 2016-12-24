@@ -8,9 +8,11 @@
   "scripts": {
     "start": "env NODE_ENV=development webpack-dev-server --progress --colors",
     "build": "rimraf dist && env NODE_ENV=production webpack  --colors",
+    "pretest": "yarn lint; yarn lint:typecheck",
     "lint": "eslint src",
     "lint:fix": "yarn run lint -- --fix",
-    "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2"
+    "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2",
+    "test": "jest"
   },
   "keywords": [
     "webpack v2",
@@ -47,10 +49,14 @@
       }
     }
   },
+  "jest": {
+    "testPathDirs": ["src/"]
+  },
   "dependencies": {
     "autoprefixer": "^6.5.4",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.9",
     "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
@@ -79,6 +85,7 @@
     "flow-bin": "^0.37.4",
     "history": "4",
     "html-webpack-plugin": "^2.24.1",
+    "jest": "^18.0.0",
     "postcss-at-rules-variables": "^0.0.26",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-conditionals": "^2.0.3",
@@ -95,6 +102,7 @@
     "react-redux": "^5.0.0",
     "react-router": "4.0.0-alpha.6",
     "react-router-redux": "^4.0.7",
+    "react-test-renderer": "^15.4.1",
     "redux": "^3.6.0",
     "redux-action-types-creator": "^1.1.0",
     "redux-create-reducer": "^1.1.1",

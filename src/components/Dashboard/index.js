@@ -1,4 +1,4 @@
-import asyncComponent from 'components/AsyncComponent';
+import asyncComponent from 'components/async-component';
 
 const AsyncDashboard = asyncComponent(() =>
   import('./Dashboard').then(module => module.default),
