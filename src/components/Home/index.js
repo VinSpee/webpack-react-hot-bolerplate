@@ -21,7 +21,7 @@ const Home = ({
   loading: boolean,
 }) => (
   <div>
-    Home Page
+    <h1>Home Page</h1>
     <div>
       { !loggedIn
       ? (

@@ -15,25 +15,39 @@ const links = [
   },
 ];
 
-const Header = ({
-  loggedIn,
+export const Header = ({
+  loggedIn = false,
 }: {
   loggedIn: boolean,
   children?: React$Element<*> | Array<React$Element<*>>,
 }) => (
-  <div>
-    { links.map((props, i) =>
-      props.protected && loggedIn &&
-      <Link
-        key={i}
-        activeClassName="active"
-        activeOnlyWhenExact
-        to={props.to}
-      >
-        {props.children}
-      </Link>,
+  <ul>
+    { links.map(props => props.protected ?
+      (loggedIn &&
+        <li key={props.to}>
+          <Link
+            className="c:red"
+            activeClassName="active"
+            activeOnlyWhenExact
+            to={props.to}
+          >
+            {props.children}
+          </Link>
+        </li>
+      ) : (
+        <li key={props.to}>
+          <Link
+            className="c:red"
+            activeClassName="active"
+            activeOnlyWhenExact
+            to={props.to}
+          >
+            {props.children}
+          </Link>
+        </li>
+      ),
     )}
-  </div>
+  </ul>
 );
 
 const mapStateToProps = (state: AppState) => ({

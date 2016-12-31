@@ -12,7 +12,7 @@
     "lint": "eslint src",
     "lint:fix": "yarn run lint -- --fix",
     "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2",
-    "test": "jest"
+    "test": "ava"
   },
   "keywords": [
     "webpack v2",
@@ -21,13 +21,23 @@
     "splitting",
     "react-router v4"
   ],
+  "ava": {
+    "files": [
+      "src/**/*.spec.js"
+    ],
+    "source": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register",
+      "./config/testsetup.js"
+    ],
+    "babel": "inherit"
+  },
   "babel": {
     "presets": [
       [
-        "es2015",
-        {
-          "modules": false
-        }
+        "es2015"
       ],
       "react",
       "stage-0"
@@ -49,14 +59,51 @@
       }
     }
   },
-  "jest": {
-    "testPathDirs": ["src/"]
+  "eslintConfig": {
+    "env": {
+      "browser": true
+    },
+    "plugins": [
+      "flowtype",
+      "redux-saga"
+    ],
+    "globals": {
+      "it": true,
+      "describe": true,
+      "test": true,
+      "expect": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "plugin:flowtype/recommended",
+      "airbnb"
+    ],
+    "rules": {
+      "react/no-unused-prop-types": 0,
+      "no-debugger": 1,
+      "no-mixed-operators": 0,
+      "react/jsx-filename-extension": 0,
+      "import/extensions": 0,
+      "import/no-named-as-default-member": 0,
+      "import/no-named-as-default": 0,
+      "import/no-unresolved": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/no-absolute-path": 0,
+      "import/no-duplicates": 0
+    },
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "config/webpack.config.js"
+        }
+      }
+    }
   },
   "dependencies": {
     "autoprefixer": "^6.5.4",
+    "ava": "^0.17.0",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.9",
     "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
@@ -72,6 +119,8 @@
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
     "cssnano": "^3.9.1",
+    "enzyme": "^2.7.0",
+    "enzyme-to-json": "^1.4.5",
     "eslint": "^3.12.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-import-resolver-webpack": "^0.8.0",
@@ -83,9 +132,12 @@
     "eslint-plugin-redux-saga": "^0.3.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "flow-bin": "^0.37.4",
+    "global": "^4.3.1",
     "history": "4",
     "html-webpack-plugin": "^2.24.1",
-    "jest": "^18.0.0",
+    "isparta": "^4.0.0",
+    "jsdom": "^9.9.1",
+    "jsdom-no-contextify": "^3.1.0",
     "postcss-at-rules-variables": "^0.0.26",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-conditionals": "^2.0.3",
@@ -115,6 +167,11 @@
     "webpack": "2.2.0-rc.2",
     "webpack-dev-server": "2.2.0-rc.0",
     "webpack-manifest-plugin": "^1.1.0",
-    "webpack-merge": "^1.1.1"
+    "webpack-merge": "^1.1.1",
+    "yarn": "latest"
+  },
+  "devDependencies": {
+    "ava": "0.17.0",
+    "react-addons-test-utils": "^15.4.1"
   }
 }

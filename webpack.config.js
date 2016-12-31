@@ -29,7 +29,6 @@ const COMMON_CONFIG = {
     vendor: [
       'react',
       'react-dom',
-      'react-addons-shallow-compare',
       'redux',
       'react-redux',
       'redux-saga',
