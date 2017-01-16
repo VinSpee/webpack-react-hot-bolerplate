@@ -4,7 +4,7 @@ import creator, {
   SYNC,
 } from 'config/create-actions';
 
-export default creator('APP', {
+export default creator('myApp', {
   LOG_IN: ASYNC,
   LOG_OUT: SYNC,
 });

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-const links = [
+const defaultLinks = [
   {
     to: '/',
     children: 'Home',
@@ -16,14 +16,20 @@ const links = [
 ];
 
 export const Header = ({
-  loggedIn = false,
+  authenticated,
+  links = defaultLinks,
 }: {
-  loggedIn: boolean,
+  authenticated?: boolean,
+  links: Array<{
+    to: string,
+    children: string,
+    protected?: boolean,
+  }>,
   children?: React$Element<*> | Array<React$Element<*>>,
 }) => (
   <ul>
     { links.map(props => props.protected ?
-      (loggedIn &&
+      (authenticated &&
         <li key={props.to}>
           <Link
             className="c:red"
@@ -51,7 +57,7 @@ export const Header = ({
 );
 
 const mapStateToProps = (state: AppState) => ({
-  loggedIn: state.currentUser.loggedIn,
+  authenticated: state.currentUser.authenticated,
 });
 
 export default connect(mapStateToProps)(Header);

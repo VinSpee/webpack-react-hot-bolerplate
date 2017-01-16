@@ -6,12 +6,16 @@
   "author": "Micahel Pevzner",
   "license": "MIT",
   "scripts": {
-    "start": "env NODE_ENV=development webpack-dev-server --progress --colors",
+    "start": "run-p dev test:watch",
+    "dev": "env NODE_ENV=development webpack-dev-server --progress --colors",
     "build": "rimraf dist && env NODE_ENV=production webpack  --colors",
     "pretest": "yarn lint; yarn lint:typecheck",
     "lint": "eslint src",
     "lint:fix": "yarn run lint -- --fix",
-    "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2"
+    "lint:typecheck": "flow; test $? -eq 0 -o $? -eq 2",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "webpack v2",
@@ -20,6 +24,30 @@
     "splitting",
     "react-router v4"
   ],
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/config/test-setup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/components/dashboard/index.js",
+      "!src/hot.js"
+    ],
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testPathDirs": [
+      "<rootDir>/src"
+    ]
+  },
   "babel": {
     "presets": [
       [
@@ -46,18 +74,24 @@
     }
   },
   "eslintConfig": {
-    "env": {
-      "browser": true
-    },
     "plugins": [
       "flowtype",
       "redux-saga"
     ],
+    "env": {
+      "jest": true,
+      "browser": true
+    },
     "globals": {
       "it": true,
       "describe": true,
       "test": true,
-      "expect": true
+      "expect": true,
+      "react": true,
+      "mount": true,
+      "shallow": true,
+      "render": true,
+      "React": true
     },
     "parser": "babel-eslint",
     "extends": [
@@ -68,6 +102,7 @@
       "react/no-unused-prop-types": 0,
       "no-debugger": 1,
       "no-mixed-operators": 0,
+      "no-confusing-arrow": 0,
       "react/jsx-filename-extension": 0,
       "import/extensions": 0,
       "import/no-named-as-default-member": 0,
@@ -144,7 +179,7 @@
     "redux-action-types-creator": "^1.1.0",
     "redux-create-reducer": "^1.1.1",
     "redux-devtools-extension": "^1.0.0",
-    "redux-saga": "^0.13.0",
+    "redux-saga": "^0.14.2",
     "rimraf": "^2.5.4",
     "sanitize.css": "^4.1.0",
     "shed-css": "^1.0.0",
@@ -156,6 +191,12 @@
     "yarn": "latest"
   },
   "devDependencies": {
-    "react-addons-test-utils": "^15.4.1"
+    "babel-jest": "^18.0.0",
+    "fetch-jsonp": "^1.0.5",
+    "jest": "^18.1.0",
+    "npm-run-all": "^4.0.0",
+    "react-addons-test-utils": "^15.4.2",
+    "redux-mock-store": "^1.2.1",
+    "redux-saga-testing": "^1.0.2"
   }
 }

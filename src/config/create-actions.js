@@ -5,7 +5,7 @@ import actionTypesCreator, {
 } from 'redux-action-types-creator';
 
 const creator = (
-  ns: string = 'APP',
+  ns: string = 'app',
   actions: {
     [name: string]: SYNC | ASYNC,
   } = {},

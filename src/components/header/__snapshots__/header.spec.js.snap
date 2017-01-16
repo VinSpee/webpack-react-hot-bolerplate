@@ -1,0 +1,17 @@
+exports[`Header Component Should render 1`] = `
+<ul>
+  <li>
+    <Link
+      activeClassName="active"
+      activeOnlyWhenExact={true}
+      activeStyle={Object {}}
+      className="c:red"
+      isActive={[Function]}
+      replace={false}
+      style={Object {}}
+      to="/">
+      Home
+    </Link>
+  </li>
+</ul>
+`;

@@ -1,17 +1,15 @@
 // @flow
 import {
   takeEvery,
-  delay,
-} from 'redux-saga';
-import {
   put,
   call,
 } from 'redux-saga/effects';
 import { createReducer } from 'redux-create-reducer';
+import api from 'components/api';
 import actions from './action-types';
 
 const getDefaultState = (): CurrentUserState => ({
-  loggedIn: false,
+  authenticated: false,
   loading: false,
 });
 
@@ -23,25 +21,39 @@ const currentUser = createReducer(getDefaultState(), {
   }),
   [actions.LOG_IN.FULFILLED]: (state: CurrentUserState, { payload }) => ({
     ...state,
-    loggedIn: true,
+    authenticated: true,
     loading: false,
     ...payload,
   }),
   [actions.LOG_OUT]: (state: CurrentUserState) => ({
     ...state,
-    loggedIn: false,
+    authenticated: false,
     loading: false,
     id: null,
   }),
 });
 
-function* handleLogIn(/* { payload } */) {
-  // const result = yield call(doSomeAPICall, payload);
-  yield call(delay, 1000);
-  yield put({ type: actions.LOG_IN.FULFILLED });
+export function* handleLogIn({ payload }: Action): Iterable<*> {
+  let data;
+  try {
+    data = yield call(api.logIn, payload);
+  } catch (err) {
+    throw new Error(err);
+  }
+  try {
+    yield put({
+      type: actions.LOG_IN.FULFILLED,
+      payload: data,
+    });
+  } catch (err) {
+    yield put({
+      type: actions.LOG_IN.REJECTED,
+      payload: new Error(err),
+    });
+  }
 }
 
-function* watchLogIn() {
+export function* watchLogIn(): Iterable<*> {
   yield takeEvery(actions.LOG_IN.REQUESTED, handleLogIn);
 }
 

@@ -9,7 +9,7 @@ import {
 const Home = ({
   handleLoginClick,
   handleLogoutClick,
-  loggedIn,
+  authenticated,
   loading,
 }: {
   handleLoginClick: (x: {
@@ -17,13 +17,13 @@ const Home = ({
     pass: string,
   }) => void,
   handleLogoutClick: () => void,
-  loggedIn: boolean,
+  authenticated: boolean,
   loading: boolean,
 }) => (
   <div>
     <h1>Home Page</h1>
     <div>
-      { !loggedIn
+      { !authenticated
       ? (
         <button
           className="
@@ -39,7 +39,7 @@ const Home = ({
             });
           }}
         >
-          {!loggedIn && loading ? 'Loading' : 'Login'}
+          {!authenticated && loading ? 'Loading' : 'Login'}
         </button>
       ) : (
         <button
@@ -59,7 +59,7 @@ const Home = ({
 );
 
 const mapStateToProps = (state: AppState) => ({
-  loggedIn: state.currentUser.loggedIn,
+  authenticated: state.currentUser.authenticated,
   loading: state.currentUser.loading,
 });
 

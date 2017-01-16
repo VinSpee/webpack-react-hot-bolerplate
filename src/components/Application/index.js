@@ -16,6 +16,7 @@ const Application = ({ store }: {
       <span>
         <Header />
         <Match exactly pattern="/" component={Home} />
+        { /* istanbul ignore next */}
         <Match exactly pattern="/dashboard" component={Dashboard} />
       </span>
     </BrowserRouter>
