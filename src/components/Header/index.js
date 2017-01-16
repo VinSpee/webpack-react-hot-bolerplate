@@ -16,39 +16,40 @@ const defaultLinks = [
 ];
 
 export const Header = ({
-  authenticated,
+  authenticated = false,
   links = defaultLinks,
 }: {
+  /* eslint-disable react/require-default-props */
   authenticated?: boolean,
+  /* eslint-enable react/require-default-props */
   links: Array<{
     to: string,
     children: string,
     protected?: boolean,
   }>,
-  children?: React$Element<*> | Array<React$Element<*>>,
 }) => (
   <ul>
-    { links.map(props => props.protected ?
+    { links.map(data => data.protected ?
       (authenticated &&
-        <li key={props.to}>
+        <li key={data.to}>
           <Link
             className="c:red"
             activeClassName="active"
             activeOnlyWhenExact
-            to={props.to}
+            to={data.to}
           >
-            {props.children}
+            {data.children}
           </Link>
         </li>
       ) : (
-        <li key={props.to}>
+        <li key={data.to}>
           <Link
             className="c:red"
             activeClassName="active"
             activeOnlyWhenExact
-            to={props.to}
+            to={data.to}
           >
-            {props.children}
+            {data.children}
           </Link>
         </li>
       ),

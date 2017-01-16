@@ -23,8 +23,4 @@ const Application = ({ store }: {
   </Provider>
 );
 
-Application.propTypes = {
-  store: Provider.propTypes.store,
-};
-
 export default Application;
