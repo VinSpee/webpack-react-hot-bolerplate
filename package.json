@@ -1,9 +1,9 @@
 {
   "name": "react-webpack2-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.0-rc1",
   "description": "React cutting edge boilerplate",
   "main": "index.js",
-  "author": "Micahel Pevzner",
+  "author": "Vince Speelman, Micahel Pevzner",
   "license": "MIT",
   "scripts": {
     "start": "run-p dev test:watch",
@@ -197,6 +197,7 @@
     "npm-run-all": "^4.0.0",
     "react-addons-test-utils": "^15.4.2",
     "redux-mock-store": "^1.2.1",
-    "redux-saga-testing": "^1.0.2"
+    "redux-saga-testing": "^1.0.2",
+    "release": "^1.1.3"
   }
 }
