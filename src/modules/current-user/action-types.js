@@ -1,10 +1,10 @@
 // @flow
 import creator, {
   ASYNC,
-  SYNC,
+  // SYNC,
 } from 'config/create-actions';
 
-export default creator('myApp', {
+export default creator('myApp/CURRENT_USER', {
   LOG_IN: ASYNC,
-  LOG_OUT: SYNC,
+  LOG_OUT: ASYNC,
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import store from 'config/create-store';
+import store, { history } from 'config/create-store';
 import Application from 'components/application';
 
 
@@ -13,7 +13,10 @@ const hotRender = (root: Node) => {
   try {
     render(
       <AppContainer>
-        <Application store={store} />
+        <Application
+          store={store}
+          history={history}
+        />
       </AppContainer>,
       root,
     );

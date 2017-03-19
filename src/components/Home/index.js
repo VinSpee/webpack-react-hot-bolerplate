@@ -2,8 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  logIn,
-  logOut,
+  actionCreators as currentUserActions,
 } from 'modules/current-user';
 
 const Home = ({
@@ -60,12 +59,18 @@ const Home = ({
 
 const mapStateToProps = (state: AppState) => ({
   authenticated: state.currentUser.authenticated,
+  user: state.currentUser.id,
   loading: state.currentUser.loading,
 });
 
 const mapDispatchToProps = {
-  handleLoginClick: logIn,
-  handleLogoutClick: logOut,
+  handleLoginClick: currentUserActions.logIn,
+  handleLogoutClick: currentUserActions.logOut,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
+
+export {
+  ConnectedHome as default,
+  Home as Component,
+};

@@ -4,26 +4,30 @@ import {
   createStore,
   applyMiddleware,
 } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import {
+  routerReducer,
+  routerMiddleware,
+} from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+import thunk from 'redux-thunk';
+import api from 'components/api';
 
-import currentUser, {
-  rootSaga as currentUserSaga,
+import {
+  reducer as currentUserReducer,
+  STATE_KEY,
 } from 'modules/current-user';
 
-function* rootSaga() {
-  yield [
-    currentUserSaga(),
-  ];
-}
-
 const rootReducer = combineReducers({
-  currentUser,
+  [STATE_KEY]: currentUserReducer,
+  router: routerReducer,
 });
-const sagaMiddleware = createSagaMiddleware();
+
+const history = createHistory();
 
 const middleware = [
-  sagaMiddleware,
+  routerMiddleware(history),
+  thunk.withExtraArgument(api),
 ];
 
 const store = createStore(
@@ -32,6 +36,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware)),
 );
 
-sagaMiddleware.run(rootSaga);
-
-export default store;
+export {
+  store as default,
+  history,
+};

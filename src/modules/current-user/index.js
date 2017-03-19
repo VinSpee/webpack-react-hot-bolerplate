@@ -1,19 +1,15 @@
 // @flow
-import {
-  takeEvery,
-  put,
-  call,
-} from 'redux-saga/effects';
 import { createReducer } from 'redux-create-reducer';
-import api from 'components/api';
 import actions from './action-types';
+
+const STATE_KEY = 'currentUser';
 
 const getDefaultState = (): CurrentUserState => ({
   authenticated: false,
   loading: false,
 });
 
-const currentUser = createReducer(getDefaultState(), {
+const reducer = createReducer(getDefaultState(), {
   [actions.LOG_IN.REQUESTED]: (state: CurrentUserState, { payload }) => ({
     ...state,
     id: payload.id,
@@ -25,7 +21,7 @@ const currentUser = createReducer(getDefaultState(), {
     loading: false,
     ...payload,
   }),
-  [actions.LOG_OUT]: (state: CurrentUserState) => ({
+  [actions.LOG_OUT.REQUESTED]: (state: CurrentUserState) => ({
     ...state,
     authenticated: false,
     loading: false,
@@ -33,46 +29,73 @@ const currentUser = createReducer(getDefaultState(), {
   }),
 });
 
-export function* handleLogIn({ payload }: Action): Iterable<*> {
-  let data;
-  try {
-    data = yield call(api.logIn, payload);
-  } catch (err) {
-    throw new Error(err);
-  }
-  try {
-    yield put({
-      type: actions.LOG_IN.FULFILLED,
-      payload: data,
+const createLogIn = ({ user, pass }: Credentials) => (
+  async (dispatch, getState, { logIn }) => {
+    dispatch({
+      type: actions.LOG_IN.REQUESTED,
+      payload: {
+        user,
+        pass,
+      },
     });
-  } catch (err) {
-    yield put({
-      type: actions.LOG_IN.REJECTED,
-      payload: new Error(err),
-    });
+    try {
+      const data = await logIn({
+        user,
+        pass,
+      });
+      dispatch({
+        type: actions.LOG_IN.FULFILLED,
+        payload: {
+          ...data,
+        },
+      });
+    } catch (err) {
+      dispatch({
+        type: actions.LOG_IN.REJECTED,
+        error: true,
+        payload: new Error(err),
+      });
+    }
   }
-}
+);
 
-export function* watchLogIn(): Iterable<*> {
-  yield takeEvery(actions.LOG_IN.REQUESTED, handleLogIn);
-}
+const createLogOut = () => (
+  async (dispatch, getState, { logOut }) => {
+    const user = getState().currentUser.id;
+    dispatch({
+      type: actions.LOG_OUT.REQUESTED,
+      payload: {
+        user,
+      },
+    });
+    try {
+      const data = await logOut({
+        user,
+      });
+      dispatch({
+        type: actions.LOG_OUT.FULFILLED,
+        payload: {
+          data,
+        },
+      });
+    } catch (err) {
+      dispatch({
+        type: actions.LOG_OUT.REJECTED,
+        error: true,
+        payload: new Error(err),
+      });
+    }
+  }
+);
 
-export const logIn = ({ user, pass }: Credentials) => ({
-  type: actions.LOG_IN.REQUESTED,
-  payload: {
-    user,
-    pass,
-  },
-});
+const actionCreators = {
+  logOut: createLogOut,
+  logIn: createLogIn,
+};
 
-export const logOut = () => ({
-  type: actions.LOG_OUT,
-});
-
-export function* rootSaga(): Iterable<*> {
-  yield [
-    watchLogIn(),
-  ];
-}
-
-export default currentUser;
+export {
+  reducer,
+  actionCreators,
+  actions as actionTypes,
+  STATE_KEY,
+};

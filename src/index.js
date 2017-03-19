@@ -2,10 +2,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import store from 'config/create-store';
+import store, { history } from 'config/create-store';
 import Application from 'components/application';
 
 render(
-  <Application store={store} />,
+  <Application
+    store={store}
+    history={history}
+  />,
   document.getElementById('root'),
 );

@@ -9,7 +9,6 @@ const {
   DIST_PATH,
   NODE_MODULES_PATH,
 } = require('./config/paths');
-const { cssLoader } = require('./config/loaders');
 
 const ENV = process.env.NODE_ENV;
 const VALID_ENVIRONMENTS = ['test', 'development', 'production'];
@@ -31,8 +30,9 @@ const COMMON_CONFIG = {
       'react-dom',
       'redux',
       'react-redux',
-      'redux-saga',
       'react-router',
+      'react-router-dom',
+      'react-router-redux',
     ],
   },
 
@@ -49,15 +49,6 @@ const COMMON_CONFIG = {
         use: [
           'babel-loader',
           'eslint-loader',
-        ],
-      },
-      {
-        test: /\.css$/,
-        include: APP_PATH,
-        use: [
-          'style-loader',
-          cssLoader,
-          'postcss-loader',
         ],
       },
     ],
@@ -100,16 +91,6 @@ const COMMON_CONFIG = {
         eslint: {
           emitWarning: true,
         },
-        postcss: [
-          /* eslint-disable global-require */
-          require('postcss-import')(),
-          require('postcss-at-rules-variables')(),
-          require('postcss-each')(),
-          require('postcss-for')(),
-          require('postcss-conditionals')(),
-          require('postcss-cssnext')(),
-          /* eslint-enable global-require */
-        ],
       },
     }),
   ],

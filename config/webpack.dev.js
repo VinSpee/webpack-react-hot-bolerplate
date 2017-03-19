@@ -44,13 +44,6 @@ const DEVELOPMENT_CONFIG = {
       template: './config/index.ejs',
     }),
     new WatchMissingNodeModulesPlugin(NODE_MODULES_PATH),
-    new webpack.LoaderOptionsPlugin({
-      postcss: [
-        /* eslint-disable global-require */
-        require('postcss-browser-reporter')(),
-        /* eslint-enable global-require */
-      ],
-    }),
   ],
 };
 
